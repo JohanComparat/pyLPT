@@ -284,10 +284,10 @@ def f2_omega(c,a):
     Omega_a = Omega_M/(Omega_M + a*c.cp.omk + a**3 * Omega_L)
     return 2.*Omega_a**(4./7.)
 
-def generate(c=None,d=None,dk=None,ng=64,boxsize=128.,sigma8=0.8, sigmaalpt = 10.,scheme='muscle',largescale=None,smallscale=None,exactpk=False, seed = 42389,returnfft = False,
+def generate(c=None,d=None,dk=None,ng=64,boxsize=128.,sigma8=0.829, sigmaalpt = 10.,scheme='muscle',largescale=None,smallscale=None,exactpk=False, seed = 42389,returnfft = False,
              dopbc=True, fileroot=None, returnpos=True, returndisp = False, plottest=False, returninitdens=False, justreturnc = False,
              returnvel=False,deltaz4vel=1./128.,
-             hubble=73., ombh2 = 0.045*0.73**2, omch2 = (0.25-0.045)*0.73**2, redshift = 0.,kmax=30.,omk=0.):
+             hubble=67.77, ombh2 = 0.048252*0.6777**2, omch2 = (0.30712-0.048252)*0.6777**2, redshift = 0.,kmax=30.,omk=0.):
     """ 
     possible inputs:
     c = Camb instance; contains cosmological parameters, power spectrum
@@ -498,6 +498,6 @@ def plotslice(pos,filename='',boxsize=100.):
     if filename != '':
         M.savefig(filename)
 
-def example():
+def example(filename="example-slice.png"):
     p=generate(ng=64,boxsize=64.)
-    plotslice(p)
+    plotslice(p,filename)
