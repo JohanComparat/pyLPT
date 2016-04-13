@@ -1,0 +1,6 @@
+New in CosmoPy0.7 (Feb 22, 2007):
+
+lg_angle_2pt.py, which contains formulae for wide-angle 2-point
+correlation function redshift distortions, from 
+Papai & Szapudi (2008), arXiv:0802.2940.
+
