@@ -21,16 +21,16 @@ REVISION = '$Revision: 59 $'
 
 # cosmological parameters have CAMB compatible names
 defaultCosmoParamDict = {
-        'ombh2': 0.022,
-        'omch2': 0.12,
+        'ombh2': 0.02216104779708,
+        'omch2': 0.11889219350771997,
         'omnuh2': 0,
         'omk': 0,
-        'hubble': 70,
+        'hubble': 67.77,
         'w': -1,
         'cs2_lam': 1,
-        'omega_baryon':    0.0462,
-        'omega_cdm':       0.2538,
-        'omega_lambda':    0.7,
+        'omega_baryon':    0.048252,
+        'omega_cdm':       0.258868,
+        'omega_lambda':    0.6777,
         'omega_neutrino':  0,
         'temp_cmb': 2.726,
         'helium_fraction': 0.24,
@@ -51,7 +51,7 @@ defaultCosmoParamDict = {
 # '1 0 0 0 0', but there surely must be a more elegant solution
 
 defaultCambExtraParamDict = {
-        'output_root': 'tmpCosmoPyCamb',
+        'output_root': 'PlanckCosmo',
         'get_scalar_cls': 'T',
         'get_vector_cls': 'F',
         'get_tensor_cls': 'F',
