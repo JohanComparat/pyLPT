@@ -109,7 +109,7 @@ class Camb(utils.SpecialFunctions):
 
     see camb example for details
     """
-    def __init__(self,iniName = 'cosmopy_camb.ini',cambPath = '../CAMB',
+    def __init__(self,iniName = 'cosmoPlanck_camb.ini',cambPath = '../CAMB',
                  cambParam=None,**kws):
         """
         kws is a set of arguments to change
