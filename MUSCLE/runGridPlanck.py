@@ -8,7 +8,7 @@ dk = FFT of a density field
 parameters:
 sigmaalpt = Gaussian k-space interpolation smoothing scale, as in ALPT
 scheme: can be 'zeld'ovich, '2lpt', 'sc' (single-scale spherical collapse), 'muscle' (multiscale)
-largescale/smallscale: use for scale interpolation
+largescale/smallscale: use for scale interpolationv
 dopbc: False to preserve distortion of particle lattice, not enforcing periodic boundary conditions
 returnpos, returndisp, returnvel: return position, displacement field at particles, velocities [velocities only work for Zeld, 2LPT currently!]
 plottest: show a slice of the particles
@@ -17,9 +17,15 @@ suppressing fluctuations in Fourier amplitudes
 """
 import cPickle
 import muscle	
+import pt
+import param
+import time
+# c = pt.Camb(cambParam = param)
 filename="Planck-slice.pdf"
-p=muscle.generate(ng=128,boxsize=32.)
+time.time()
+p=muscle.generate( ng=256,boxsize=256.)
+time.time()
 muscle.plotslice(p,filename,boxsize=32.)
-f = open('/home2/jcomparat/LPTmeshes/Planck-muscke-2lpt-test.pkl')
+f = open('/home2/jcomparat/LPTmeshes/Planck-muscke-2lpt-test.pkl','w')
 cPickle.dump(p,f)
 f.close()
