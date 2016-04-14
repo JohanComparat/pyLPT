@@ -23,7 +23,7 @@ import time
 # c = pt.Camb(cambParam = param)
 filename="Planck-slice.pdf"
 time.time()
-p=muscle.generate( ng=256,boxsize=256.)
+p=muscle.generate( ng=128,boxsize=128.)
 time.time()
 muscle.plotslice(p,filename,boxsize=32.)
 f = open('/home2/jcomparat/LPTmeshes/Planck-muscke-2lpt-test.pkl','w')
