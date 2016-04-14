@@ -22,9 +22,25 @@ import param
 import time
 # c = pt.Camb(cambParam = param)
 filename="Planck-slice.pdf"
-time.time()
-p=muscle.generate( ng=128,boxsize=128.)
-time.time()
+t0 = time.time()
+p32=muscle.generate( ng=128,boxsize=128.)
+t1 = time.time()
+print "time needed = ", t1 - t0  # 13 s
+
+t0 = time.time()
+p=muscle.generate( ng=256,boxsize=256.)
+t1 = time.time()
+print "time needed = ", t1 - t0 # 124 s
+
+t0 = time.time()
+p=muscle.generate( ng=512,boxsize=512.)
+t1 = time.time()
+print "time needed = ", t1 - t0 # 1603.97744703
+
+# p contains the final position of each initial grid point
+
+# then on eneeds to convert to an overdensity and add the biasing model
+
 muscle.plotslice(p,filename,boxsize=32.)
 f = open('/home2/jcomparat/LPTmeshes/Planck-muscke-2lpt-test.pkl','w')
 cPickle.dump(p,f)
