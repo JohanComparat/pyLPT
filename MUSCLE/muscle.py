@@ -293,11 +293,9 @@ def generate(c=None,d=None,dk=None,ng=64,boxsize=128.,sigma8=0.829, sigmaalpt = 
 
     parameters:
     sigmaalpt = Gaussian k-space interpolation smoothing scale, as in ALPT
-    scheme: can be 'zeld'ovich, '2lpt',
-            'sc' (single-scale spherical collapse), 'muscle' (multiscale)
+    scheme: can be 'zeld'ovich, '2lpt', 'sc' (single-scale spherical collapse), 'muscle' (multiscale)
     largescale/smallscale: use for scale interpolation
-    dopbc: False to preserve distortion of particle lattice, not enforcing
-           periodic boundary conditions
+    dopbc: False to preserve distortion of particle lattice, not enforcing periodic boundary conditions
     returnpos, returndisp, returnvel: return position, displacement field at particles, velocities [velocities only work for Zeld, 2LPT currently!]
     plottest: show a slice of the particles
     exactpk: Set each Fourier amplitude exactly to the linear power spectrum, 
