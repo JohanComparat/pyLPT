@@ -21,6 +21,7 @@ def prodBox(ng=254, boxsize=64):
 	f.close()
 	return t1 - t0
 
+ti = time.time()
 z = 0.0
 ng=272
 boxsize=64.
@@ -28,7 +29,7 @@ name = "Planck-ng"+str(ng)+"-L"+str(boxsize)
 tracer = 'lrg'
 path_to_outputCat = '/home2/jcomparat/LPTmeshes/'+name+'-'+tracer+'.fits.gz'
 
-prodBox(ng, boxsize)
+#prodBox(ng, boxsize)
 
 # global deduced parameters 
 Lbox = boxsize * uu.megaparsec
@@ -88,7 +89,11 @@ Rs = n.random.uniform(0,1,len(p33))
 threshold = 2.
 for ii in range(len(p33)):
 	index= (p33[ii]/dx).astype(int)
-	DFval = DF[index[0],index[1],index[2]]
+	if len((index==meshsize).nonzero()[0])>0:
+		index[(index==meshsize)] = n.ones_like(index[(index==meshsize)])*(meshsize-1)
+		DFval = DF[index[0],index[1],index[2]]
+	else :
+		DFval = DF[index[0],index[1],index[2]]
 	if DFval > threshold and Rs[ii]<n.polyval(px, DFVal) :
 		catalog.append(n.hstack((p33[ii], DFval)))
 
@@ -104,3 +109,7 @@ cols = fits.ColDefs([c1, c2, c3, c4 ])
 hdu = fits.BinTableHDU.from_columns(cols)
 os.system("rm -rf "+path_to_outputCat)
 hdu.writeto(path_to_outputCat)
+
+tf = time.time()
+
+print tf - ti, "seconds, ", (tf - ti)/60., "minutes"
