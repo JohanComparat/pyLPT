@@ -27,6 +27,23 @@ p32=muscle.generate( ng=128,boxsize=128.)
 t1 = time.time()
 print "time needed = ", t1 - t0  # 13 s
 
+def prodBox(ng=254, boxsize=64.):
+	name = "Planck-ng"+str(ng)+"-L"+str(boxsize)
+	t0 = time.time()
+	p32=muscle.generate(ng = ng, boxsize = boxsize )
+	t1 = time.time()
+	print "time needed = ", t1 - t0  # 206 s
+	muscle.plotslice(p32, name+".pdf",boxsize = boxsize)
+	f = open('/home2/jcomparat/LPTmeshes/'+name+'.pkl','w')
+	cPickle.dump(p32,f)
+	f.close()
+	return t1 - t0
+
+prodBox(ng=254, boxsize=64.)
+prodBox(ng=163, boxsize=64.)
+prodBox(ng=122, boxsize=64.)
+	
+
 t0 = time.time()
 p=muscle.generate( ng=256,boxsize=256.)
 t1 = time.time()
