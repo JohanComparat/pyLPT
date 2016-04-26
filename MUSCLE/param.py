@@ -104,7 +104,7 @@ defaultCambExtraParamDict = {
     }
 
 defaultHaloModelParamDict = {
-    'z':0., #redshift
+    'z':0.7, #redshift
     'delta':0., #Change to something else for, e.g. delta=1.686
     # Mass function parameters (param in Sheth Mo & Tormen, Eq.6)
     'st_big_a': 0., #PS: 0.5 #ST: 0.322

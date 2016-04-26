@@ -10,10 +10,12 @@ import time
 from astropy.io import fits
 import os 
 
+#c=None,d=None,dk=None,ng=64,boxsize=128.,sigma8=0.829, sigmaalpt = 10.,scheme='muscle',largescale=None,smallscale=None,exactpk=False, seed = 42389,returnfft = False, dopbc=True, fileroot=None, returnpos=True, returndisp = False, plottest=False, returninitdens=False, justreturnc = False, returnvel=False,deltaz4vel=1./128., hubble=67.77, ombh2 = 0.048252*0.6777**2, omch2 = (0.30712-0.048252)*0.6777**2, redshift = 0.,kmax=100.,omk=0.
+
 def prodBox(ng, boxsize):
 	name = "Planck-ng"+str(ng)+"-L"+str(boxsize)
 	t0 = time.time()
-	p32=muscle.generate(ng = ng, boxsize = boxsize )
+	p32=muscle.generate(ng = ng, boxsize = boxsize, redshift = 0.7 )
 	t1 = time.time()
 	print "time needed = ", t1 - t0  # 206 s
 	muscle.plotslice(p32, name+".pdf",boxsize = boxsize)
