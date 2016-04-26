@@ -31,7 +31,7 @@ name = "Planck-ng"+str(ng)+"-L"+str(boxsize)
 tracer = 'lrg'
 path_to_outputCat = '/home2/jcomparat/LPTmeshes/'+name+'-'+tracer+'.fits.gz'
 
-#prodBox(ng, boxsize)
+prodBox(ng, boxsize)
 
 # global deduced parameters 
 Lbox = boxsize * uu.megaparsec
