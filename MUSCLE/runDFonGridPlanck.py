@@ -27,8 +27,8 @@ def prodBox(ng, boxsize):
 ti = time.time()
 print ti
 z = 0.0
-ng=250
-boxsize=512.
+ng=512
+boxsize=250.
 name = "Planck-ng"+str(ng)+"-L"+str(boxsize)
 tracer = 'lrg'
 path_to_outputCat = '/home2/jcomparat/LPTmeshes/'+name+'-'+tracer+'.fits.gz'
