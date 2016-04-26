@@ -33,7 +33,7 @@ name = "Planck-ng"+str(ng)+"-L"+str(boxsize)
 tracer = 'lrg'
 path_to_outputCat = '/home2/jcomparat/LPTmeshes/'+name+'-'+tracer+'.fits.gz'
 
-#tdiff, p32 = prodBox(ng, boxsize)
+tdiff, p32 = prodBox(ng, boxsize)
 
 # global deduced parameters 
 Lbox = boxsize * uu.megaparsec
@@ -53,11 +53,12 @@ cellVolume = (dx*uu.megaparsec)**3
 # conversion N particle to DF value
 conversion = ((massPerParticle / cellVolume) / (DFunit)).value
 
+"""
 # opens the filewith particles
 f = open('/home2/jcomparat/LPTmeshes/'+name+'.pkl','r')
 p32= cPickle.load(f)
 f.close()
-
+"""
 
 p33 = p32.reshape(ng**3,3)
 
