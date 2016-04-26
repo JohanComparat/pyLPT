@@ -8,8 +8,9 @@ import pt
 import param
 import time
 from astropy.io import fits
+import os 
 
-def prodBox(ng=254, boxsize=64):
+def prodBox(ng, boxsize):
 	name = "Planck-ng"+str(ng)+"-L"+str(boxsize)
 	t0 = time.time()
 	p32=muscle.generate(ng = ng, boxsize = boxsize )
@@ -24,13 +25,13 @@ def prodBox(ng=254, boxsize=64):
 ti = time.time()
 print ti
 z = 0.0
-ng=272
-boxsize=128.
+ng=192
+boxsize=50.
 name = "Planck-ng"+str(ng)+"-L"+str(boxsize)
 tracer = 'lrg'
 path_to_outputCat = '/home2/jcomparat/LPTmeshes/'+name+'-'+tracer+'.fits.gz'
 
-prodBox(ng, boxsize)
+#prodBox(ng, boxsize)
 
 # global deduced parameters 
 Lbox = boxsize * uu.megaparsec
@@ -38,6 +39,10 @@ massInBox = (aa.critical_density(z) * aa.Om(z) * (Lbox.to(uu.cm))**3).to(uu.solM
 massPerParticle = massInBox / ng**3.
 Mpart = massPerParticle.value
 DFunit = (aa.critical_density(z) * aa.Om(z)).to(uu.solMass/uu.megaparsec**3)
+
+# tracer parameter
+tracerDensity = 0.0001
+expectedNumber = tracerDensity * boxsize**3.
 
 # mesh parameters :
 dx = boxsize / (ng) # 1000/2048.
@@ -85,16 +90,26 @@ px = [8.281210709565847055e-04,
 -7.436849283207645378e+00]
 
 # random assignment within the cell
-
+threshold=2.
 catalog=[]
 Rs = n.random.uniform(0,1,(meshsize, meshsize, meshsize))
 I, J, K = n.meshgrid(n.arange(meshsize), n.arange(meshsize), n.arange(meshsize))
 sel = (DF>threshold)
 
-proba = 10**n.polyval(px, n.log10(DF[sel]))
+from scipy.integrate import quad
+from scipy.optimize import newton
+probaFun = lambda x : 10**n.polyval(px, n.log10(x)) #/(1000./2048./dx)**3.
+total = quad(probaFun, threshold, DF.max())[0]
+
+probaToNorm = lambda x, AA : expectedNumber - AA*probaFun(x)
+funf = lambda AA : quad(probaToNorm, threshold, DF.max(), args=(AA))[0]
+normalization = newton(funf, 100)
+
+proba = 10**n.polyval(px, n.log10(DF[sel])) * 128**3/normalization
 Rs2 = n.random.uniform(0,1,len(proba))
 #lrg = (Rs[sel]<proba*10)
 lrg = (Rs2<proba)
+len(I[sel][lrg])
 
 indices = n.transpose([ I[sel][lrg], J[sel][lrg], K[sel][lrg] ])
 
@@ -154,7 +169,7 @@ c1 = fits.Column(name="x",format='D', array=out[0])
 c2 = fits.Column(name="y",format='D', array=out[1] )
 c3 = fits.Column(name="z",format='D', array=out[2] )
 # now writes the catalog
-cols = fits.ColDefs([c1, c2, c3, c4 ])
+cols = fits.ColDefs([c1, c2, c3, c0 ])
 hdu = fits.BinTableHDU.from_columns(cols)
 os.system("rm -rf "+path_to_outputCat)
 hdu.writeto(path_to_outputCat)
