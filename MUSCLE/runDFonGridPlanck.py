@@ -22,7 +22,7 @@ def prodBox(ng, boxsize):
 	f = open('/home2/jcomparat/LPTmeshes/'+name+'.pkl','w')
 	cPickle.dump(p32,f)
 	f.close()
-	return t1 - t0
+	return t1 - t0, p32
 
 ti = time.time()
 print ti
@@ -33,7 +33,7 @@ name = "Planck-ng"+str(ng)+"-L"+str(boxsize)
 tracer = 'lrg'
 path_to_outputCat = '/home2/jcomparat/LPTmeshes/'+name+'-'+tracer+'.fits.gz'
 
-prodBox(ng, boxsize)
+#tdiff, p32 = prodBox(ng, boxsize)
 
 # global deduced parameters 
 Lbox = boxsize * uu.megaparsec
@@ -57,6 +57,8 @@ conversion = ((massPerParticle / cellVolume) / (DFunit)).value
 f = open('/home2/jcomparat/LPTmeshes/'+name+'.pkl','r')
 p32= cPickle.load(f)
 f.close()
+
+
 p33 = p32.reshape(ng**3,3)
 
 print time.time()
