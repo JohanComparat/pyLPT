@@ -21,13 +21,8 @@ import pt
 import param
 import time
 # c = pt.Camb(cambParam = param)
-filename="Planck-slice.pdf"
-t0 = time.time()
-p32=muscle.generate( ng=128,boxsize=128.)
-t1 = time.time()
-print "time needed = ", t1 - t0  # 13 s
 
-def prodBox(ng=254, boxsize=64.):
+def prodBox(ng=254, boxsize=64):
 	name = "Planck-ng"+str(ng)+"-L"+str(boxsize)
 	t0 = time.time()
 	p32=muscle.generate(ng = ng, boxsize = boxsize )
@@ -39,9 +34,14 @@ def prodBox(ng=254, boxsize=64.):
 	f.close()
 	return t1 - t0
 
-prodBox(ng=254, boxsize=64.)
-prodBox(ng=163, boxsize=64.)
-prodBox(ng=122, boxsize=64.)
+prodBox(ng=490, boxsize=128.) # 809 : MDPL R
+prodBox(ng=254, boxsize=64.) # 185 : MDPL R
+
+prodBox(ng=328, boxsize=128.) # - : MDPL R
+prodBox(ng=164, boxsize=64.) # 26 : 2/3 MDPL R
+
+prodBox(ng=246, boxsize=128.) # 88 : half MDPL R
+prodBox(ng=122, boxsize=64.) # 12 : half MDPL R
 	
 
 t0 = time.time()
