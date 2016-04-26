@@ -27,8 +27,8 @@ def prodBox(ng, boxsize):
 ti = time.time()
 print ti
 z = 0.0
-ng=192
-boxsize=50.
+ng=125
+boxsize=256.
 name = "Planck-ng"+str(ng)+"-L"+str(boxsize)
 tracer = 'lrg'
 path_to_outputCat = '/home2/jcomparat/LPTmeshes/'+name+'-'+tracer+'.fits.gz'
@@ -109,7 +109,7 @@ probaToNorm = lambda x, AA : expectedNumber - AA*probaFun(x)
 funf = lambda AA : quad(probaToNorm, threshold, DF.max(), args=(AA))[0]
 normalization = newton(funf, 100)
 
-proba = 10**n.polyval(px, n.log10(DF[sel])) * 128**3/normalization
+proba = 10**n.polyval(px, n.log10(DF[sel]))*8. #*20# * 128**3/normalization
 Rs2 = n.random.uniform(0,1,len(proba))
 #lrg = (Rs[sel]<proba*10)
 lrg = (Rs2<proba)
