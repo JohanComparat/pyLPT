@@ -33,7 +33,7 @@ name = "Planck-ng"+str(ng)+"-L"+str(boxsize)
 tracer = 'lrg'
 path_to_outputCat = '/home2/jcomparat/LPTmeshes/'+name+'-'+tracer+'.fits.gz'
 
-tdiff, p32 = prodBox(ng, boxsize)
+# tdiff, p32 = prodBox(ng, boxsize)
 
 # global deduced parameters 
 Lbox = boxsize * uu.megaparsec
@@ -53,12 +53,11 @@ cellVolume = (dx*uu.megaparsec)**3
 # conversion N particle to DF value
 conversion = ((massPerParticle / cellVolume) / (DFunit)).value
 
-"""
+
 # opens the filewith particles
 f = open('/home2/jcomparat/LPTmeshes/'+name+'.pkl','r')
 p32= cPickle.load(f)
 f.close()
-"""
 
 p33 = p32.reshape(ng**3,3)
 
@@ -77,6 +76,19 @@ for ii in range(len(p33)):
 		DF[index[0],index[1],index[2]]+=1
 
 DF *= conversion
+
+
+# produces a histogramof the complete density field
+bins = n.hstack((0,n.logspace(-3, 4, 1000)))
+HDF0, bins = n.histogram(hd['DF'], bins= bins) #n.logspace(-1.5,4,80))
+dx = bins[1:] - bins[:-1]
+xb = (bins[1:]+bins[:-1])/2.
+N0 = HDF0 /dx / boxsize**3.
+f=open('/home2/jcomparat/LPTmeshes/'+name+'.HDF0.pkl','r')
+cPickle.dump([bins, HDF0, N0])
+f.close()
+
+sys.exit()
 
 print time.time()
 
